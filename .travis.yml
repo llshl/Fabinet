@@ -13,6 +13,8 @@ cache:
     - '$HOME/.gradle'
 
 before_install:
+  - sudo apt-get update 
+  - sudo apt-get upgrade
   - chomod +x gradlew
   
 script: "./gradlew clean build"
