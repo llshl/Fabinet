@@ -14,9 +14,9 @@ cache:
 
 before_install:
   - chmod +x gradlew
-  - zip -r springboot-webservice *
+  - zip -r fabinet *
   - mkdir -p deploy
-  - mv springboot-webservice.zip deploy/springboot-webservice.zip
+  - mv fabinet.zip deploy/fabinet.zip
   
 deploy:
   - provider: s3
