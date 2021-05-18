@@ -16,11 +16,6 @@ script: "./gradlew clean build"
 
 before_install:
   - chmod +x gradlew
-  
-#before_deploy:
-#  - zip -r fabinet *
-#  - mkdir -p deploy
-#  - mv fabinet.zip deploy/fabinet.zip
 
 before_deploy:
   - mkdir -p before-deploy
@@ -49,7 +44,7 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
     secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
     bucket: fabinet-travis-build # S3 버킷
-    key: fabinet.zip # S3 버킷에 저장된 springboot-webservice.zip 파일을 EC2로 배포
+    key: fabinet.zip # S3 버킷에 저장된 fabinet.zip 파일을 EC2로 배포
     bundle_type: zip
     application: fabinet # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션
     deployment_group: fabinet-group # 웹 콘솔에서 등록한 CodeDeploy 배포 그룹
