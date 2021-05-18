@@ -28,6 +28,9 @@ deploy:
     acl: public_read
     local_dir: deploy # before_deploy에서 생성한 디렉토리
     wait-until-deployed: true
+    on:
+      repo: jojoldu/springboot-webservice
+      branch: main
     
 script: "./gradlew clean build"
 
