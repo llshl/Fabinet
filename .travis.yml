@@ -12,8 +12,12 @@ cache:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
 
+script: "./gradlew clean build"
+
 before_install:
   - chmod +x gradlew
+  
+before_deploy:
   - zip -r fabinet *
   - mkdir -p deploy
   - mv fabinet.zip deploy/fabinet.zip
@@ -31,8 +35,6 @@ deploy:
     on:
       repo: llshl/fabinet
       branch: main
-    
-script: "./gradlew clean build"
 
 notifications:
   email:
