@@ -4,10 +4,10 @@ spring:
     username: llshl
     password: jh18821882
     driver-class-name: com.mysql.cj.jdbc.Driver
-  #mvc:
-    #view:
-      #prefix: /WEB-INF/views/
-      #suffix: .jsp
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
 
   servlet:
     multipart:
