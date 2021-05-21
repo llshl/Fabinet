@@ -77,6 +77,8 @@ public class BoardController {
 
         log.info(boardDTO.toString()+"\n"+now+"\n"+sessionId);
 
+        System.out.println("이거확인해봐시발"+board.getId());
+
         String result = boardService.createBoard(board);
         log.info("["+result+"]에 대한 게시글 등록 완료");
 

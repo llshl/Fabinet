@@ -24,6 +24,11 @@ public class CabinetServiceImpl implements CabinetService{
     }
 
     @Override
+    public List<String> getAllCabinet() {
+        return cabinetRepository.getAllCabinet();
+    }
+
+    @Override
     public String calculateBill(Board board) {
         return null;
     }
@@ -64,7 +69,6 @@ public class CabinetServiceImpl implements CabinetService{
     @Override
     @Transactional
     public String chooseCanibet(Cabinet cabinet) {
-        cabinetRepository.save(cabinet);
-        return "OK";
+        return cabinetRepository.save(cabinet);
     }
 }

@@ -9,11 +9,13 @@ import java.util.List;
 
 public interface CabinetService {
 
-    public String calculateBill(Board board);
+    String calculateBill(Board board);
 
     long getBill(Member member);
 
     String chooseCanibet(Cabinet cabinet);
 
-    public List<Cabinet> findAllByID(Member member);
+    List<Cabinet> findAllByID(Member member);
+
+    List<String> getAllCabinet();
 }

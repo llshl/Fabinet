@@ -17,12 +17,9 @@ public class CabinetRepositoryImpl implements CabinetRepository{
     private final EntityManager em;
 
     @Override
-    public void save(Cabinet cabinet) {
+    public String save(Cabinet cabinet) {
         em.persist(cabinet);
-        System.out.println("persist 완료");
-        System.out.println("cabinet.getId() = " + cabinet.getId());
-        System.out.println("cabinet.getName() = " + cabinet.getName());
-        System.out.println("cabinet.getMember().getLoginId() = " + cabinet.getMember().getLoginId());
+        return cabinet.getName();
     }
 
     @Override
@@ -30,6 +27,11 @@ public class CabinetRepositoryImpl implements CabinetRepository{
         log.info("사용중인 사물함 전체 불러오기");
         return em.createQuery("select c from Cabinet c where c.member=:member",Cabinet.class)
                 .setParameter("member",member).getResultList();
+    }
+
+    @Override
+    public List<String> getAllCabinet() {
+        return em.createQuery("select c.name from Cabinet c").getResultList();
     }
 
     @Override
