@@ -13,20 +13,20 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 @Slf4j
-public class CabinetRepositoryImpl implements CabinetRepository{
+public class CabinetHistoryRepositoryImpl implements CabinetHistoryRepository{
 
     private final EntityManager em;
 
     @Override
-    public String save(Cabinet cabinet) {
+    public String save(CabinetHistory cabinet) {
         em.persist(cabinet);
         return cabinet.getName();
     }
 
     @Override
-    public List<Cabinet> findAllbyName(Member member) {
-        log.info("사용중인 사물함 전체 불러오기");
-        return em.createQuery("select c from Cabinet c where c.member=:member",Cabinet.class)
+    public List<CabinetHistory> findAllbyName(Member member) {
+        log.info("사용했던 사물함 전체 내역 불러오기");
+        return em.createQuery("select c from CabinetHistory c where c.member=:member", CabinetHistory.class)
                 .setParameter("member",member).getResultList();
     }
 

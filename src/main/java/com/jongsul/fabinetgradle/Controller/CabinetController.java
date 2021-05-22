@@ -8,6 +8,8 @@ import com.jongsul.fabinetgradle.Service.CabinetService;
 import com.jongsul.fabinetgradle.Service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,13 +35,6 @@ public class CabinetController {
     private long passedTime;
     private final List<String> CABINET_LIST
             = Arrays.asList(new String[]{"A-1-1", "A-1-2", "B-1-1", "B-1-2"});
-
-    //사물함 예약 드롭다운 요소를 DB에서 가져온다
-    //사용가능한 건물, 층, 번호를 계산해야함
-    //DB의 cabinet테이블을 다 가져온다
-    //'-'기준으로 사용중인 건물,층,번호를 알아낸다
-    //(가능한 사물함을 모두 적어놓은 목록) - (cabinet테이블에 존재하는 사물함들) 의 값만 드롭다운에 출력(즉, 사용가능한 사물함칸들)
-    //(가능한 사물함을 모두 적어놓은 목록)을 따로 클래스를 만들어서 미리 정의해놓자
 
     //사물함 사용시간을 LocalDateTime에서 Date로 바꿨다. 사물함 추가하기 기능 구현하고 확인해보자
     @GetMapping("/list")
@@ -90,35 +85,12 @@ public class CabinetController {
                               HttpServletRequest request,
                               HttpServletResponse response) throws IOException {
 
-        log.info("selected cabinet name: "+cabinetDTO.getSelectOne());
-        HttpSession session = request.getSession();
-        String sessionId = (String)session.getAttribute("loginMemberId");
-
-        String[] temp = cabinetDTO.getSelectOne().split("-");
-        Cabinet cabinet = Cabinet.builder()
-                .building(temp[0])
-                .floor(temp[1])
-                .number(temp[2])
-                .name(cabinetDTO.getSelectOne())
-                .member(memberService.findOne(sessionId))
-                .startTime(new Date())
-                .build();
-
-        System.out.println("캐비넷 id값 확인"+cabinet.getId());
-        try {
-            log.info(cabinetService.chooseCanibet(cabinet)+"에 대한 persist 진행");
-        }
-        catch (Exception e){
-            response.getWriter().write("occupied");
-            log.info("이미 사용중 - 실패");
-            return;
-        }
-        log.info("persist 완료 - 성공");
+        log.info(cabinetService.chooseCanibet(cabinetDTO,request)+"번 사물함 사용 시작");
         response.getWriter().write("available");
     }
 
     @GetMapping("/cabinets")
-    public List<String> getCurrentAvailableCabinet(){
+    public ResponseEntity<List<String>> getCurrentAvailableCabinet(){
 
         //A동, B동, C동만 하자
         //각 동에 1,2,3층있다
@@ -143,6 +115,6 @@ public class CabinetController {
         for (String availableCabinet : entireCabinet) {
             log.info(availableCabinet);
         }
-        return entireCabinet;
+        return ResponseEntity.ok(entireCabinet);
     }
 }

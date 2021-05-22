@@ -1,17 +1,18 @@
 package com.jongsul.fabinetgradle.Repository;
 
-
-
 import com.jongsul.fabinetgradle.Domain.Cabinet;
 import com.jongsul.fabinetgradle.Domain.CabinetHistory;
 import com.jongsul.fabinetgradle.Domain.Member;
 
 import java.util.List;
 
-public interface CabinetRepository {
+public interface CabinetHistoryRepository {
 
-    String save(Cabinet cabinet);
+    String save(CabinetHistory cabinet);
+
     List<Cabinet> getDate(Member member);
-    List<Cabinet> findAllbyName(Member member);
+
+    List<CabinetHistory> findAllbyName(Member member);
+
     List<String> getAllCabinet();
 }
