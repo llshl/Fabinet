@@ -124,7 +124,6 @@ public class CabinetController {
     @GetMapping("/mqtt")
     public String getCabinetByName(String userID) {
         log.info("getCabinetByName 실행");
-        System.out.println("여기뭘로나오냐 "+mqttConfig.getInputUserName());   //이걸로 mqtt로 들어온 사용자 id받아진다
         List<Cabinet> getCabinets = cabinetService.getCabinetName(userID);
         return getCabinets.get(0).getName();
     }
