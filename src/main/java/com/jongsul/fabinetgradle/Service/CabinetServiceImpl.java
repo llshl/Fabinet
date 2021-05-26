@@ -29,6 +29,7 @@ public class CabinetServiceImpl implements CabinetService{
     private final CabinetHistoryRepository cabinetHistoryRepository;
     private final MemberRepository memberRepository;
 
+
     @Override
     public List<Cabinet> findAllByID(Member member){
         return cabinetRepository.findAllbyName(member);
