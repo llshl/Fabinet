@@ -26,7 +26,7 @@
         //라는 에러가떠서 못하는중
         //만약 해결한다면 stopUsing페이지로 리다이렉션하는 location.href를 success 블록에 넣자
 
-        location.href = "/delete/"+${userInfo.num};
+        //location.href = "/delete/"+${userInfo.num};
         var num = '${userInfo.num}';
         var money = '${userInfo.money}';
         var name = '${userInfo.name}';
