@@ -14,7 +14,6 @@
 <body>
     <div class="ui modal" id='view_modal' align="center">
         <h2>잠시만 기다려주세요..</h2>
-        번호는 ${num}
     </div>
 
     <script>
