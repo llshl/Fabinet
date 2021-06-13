@@ -114,11 +114,11 @@
                                 "<td>"+data[ele].id+"</td>"+
                                 "<td>"+data[ele].name+"</td>"+
                                 "<td>"+FormatToUnixtime(data[ele].startTime)+"</td>"+
-                                "<td>"+TimeDiff(now,data[ele].startTime)+"</td>"+
+                                "<td>"+TimeDiff(now,data[ele].startTime)+"원"+"</td>"+
                                 "<td><a class='btn btn-primary btn-user btn-block' href='/bill/pay/"+data[ele].id+"'>결제하기</a></td>"+
                                 "</tr>"
 
-                            );console.log(data[ele].startTime);
+                            );
                         }
 
                         /*console.log(data);
@@ -144,18 +144,25 @@
                 function TimeDiff(unixtime1,unixtime2) {
                     var t1 = new Date(unixtime1);
                     var t2 = new Date(unixtime2);
-                    return parseInt(t1-t2);
+                    var diffSec = parseInt((t1-t2)/1000);
+                    var money = -1;
+                    if(diffSec < 10800){
+                        money = 3000;
+                    }
+                    else{
+                        money = 3000 + ((diffSec - 10800)/3600)*500;
+                    }
+                    return Math.floor(money).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 };
 
                 function FormatToUnixtime(unixtime) {
                     var u = new Date(unixtime);
                     console.log("u: " + u);
                     return u.getUTCFullYear() +
-                        '-' + ('0' + u.getMonth()).slice(-2) +
+                        '-' + ('0' + (u.getMonth()+1)).slice(-2) +
                         '-' + ('0' + u.getDate()).slice(-2) +
                         ' ' + ('0' + u.getHours()).slice(-2) +
                         ':' + ('0' + u.getMinutes()).slice(-2)
-                    // ':' + ('0' + u.getUTCSeconds()).slice(-2)
                 };
             });
         </script>

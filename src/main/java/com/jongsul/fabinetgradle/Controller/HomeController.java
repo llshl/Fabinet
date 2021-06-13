@@ -1,6 +1,7 @@
 package com.jongsul.fabinetgradle.Controller;
 
 import com.jongsul.fabinetgradle.Mqtt.MqttSubscribeUserID;
+import com.jongsul.fabinetgradle.Mqtt4Spring.MqttConfig;
 import com.jongsul.fabinetgradle.Service.CabinetService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -79,6 +80,20 @@ public class HomeController {
         return "bill";
     }
 
+    //개인정보 페이지로
+    @GetMapping("/mypage")
+    public String privatePage(){
+        log.info("개인 페이지로 이동");
+        return "mypage";
+    }
+
+    //수동개방 페이지로 이동
+    @GetMapping("/open")
+    public String openPage(){
+        log.info("수동 개방 페이지로 이동");
+        return "open";
+    }
+
     //결제 api 호출
     @GetMapping("/bill/pay/{id}")
     public String PaymentPage(@PathVariable("id") String id, Model model){
@@ -87,18 +102,20 @@ public class HomeController {
         return "payment";
     }
 
-    //개인정보 페이지로
-    @GetMapping("/mypage")
-    public String privatePage(){
-        log.info("개인 페이지로 이동");
-        return "mypage";
-    }
-
     //사물함 사용 종료 api 호출 페이지로
     @GetMapping("/delete/{id}")
     public String deletePage(@PathVariable("id") long id, Model model){
         log.info("삭제 페이지로 이동 들어온 번호: "+id);
         model.addAttribute("num",id);
         return "stopUsing";
+    }
+
+    //수동 개방
+    @GetMapping("/bill/open/{name}")    //name값으로 사용자 ID가 들어옴
+    public String doOpenMqtt(@PathVariable("name") String name){
+        log.info(name+" 사물함 개방");    //name을 넘겨줘서 Mqtt메시지를 만들어서 전송하면됨 (A-1-1)이렇게
+        MqttConfig sendMessage = new MqttConfig();
+        sendMessage.selfOpenMqttSender(name);
+        return "index";
     }
 }

@@ -32,7 +32,6 @@ import java.util.List;
 public class CabinetController {
 
     private BillDTO bill;
-    private final double weight = 0.001541666;
     private final CabinetService cabinetService;
     private final MemberService memberService;
     private long passedTime;
@@ -47,17 +46,7 @@ public class CabinetController {
     public List<Cabinet> showEntireBill(HttpServletRequest request){
         Member member = memberService.findOne(memberInformation.getUserName(request));
         List<Cabinet> cabinets = cabinetService.findAllByID(member);    //멤버를 통해 해당 사용자가 사용중인 사물함 리스트 가져오기
-        System.out.println("=====사용중인 사물함=====");
         Date now = new Date();
-
-        for(Cabinet a : cabinets){
-            System.out.println("현재시각: "+ now.getTime());
-            System.out.println("사용시각: "+ a.getStartTime().getTime());
-            long diffDate = now.getTime() - a.getStartTime().getTime();
-            System.out.println("diffDate: "+diffDate);
-            money += diffDate;
-            System.out.println(a.getName());
-        }
         System.out.println("계산된값: "+Math.floor(money*0.00001541666/10)*10+1000);
         System.out.println("money: "+money);
         return cabinets;

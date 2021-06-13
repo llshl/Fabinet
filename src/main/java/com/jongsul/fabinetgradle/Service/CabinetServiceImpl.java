@@ -30,8 +30,6 @@ public class CabinetServiceImpl implements CabinetService{
     private final CabinetRepository cabinetRepository;
     private final CabinetHistoryRepository cabinetHistoryRepository;
     private final MemberRepository memberRepository;
-    private final long ONE_MONTH_SEC = 2592000;
-    private final long ONE_DAY_SEC = 86400;
     private final long THREE_HOURS_SEC = 10800;
     private final long ONE_HOUR_SEC = 3600;
 
@@ -104,6 +102,7 @@ public class CabinetServiceImpl implements CabinetService{
     @Transactional
     public String chooseCanibet(CabinetDTO cabinetDTO, HttpServletRequest request) {
         log.info("선택한 사물함 번호: "+cabinetDTO.getSelectOne());
+        Date now = new Date();
         String[] temp = cabinetDTO.getSelectOne().split("-");
         Cabinet cabinet = Cabinet.builder()
                 .building(temp[0])
@@ -111,7 +110,7 @@ public class CabinetServiceImpl implements CabinetService{
                 .number(temp[2])
                 .name(cabinetDTO.getSelectOne())
                 .member(memberRepository.findOne(memberInformation.getUserName(request)))
-                .startTime(new Date())
+                .startTime(now)
                 .build();
         CabinetHistory cabinetHistory = CabinetHistory.builder()
                 .building(temp[0])
@@ -119,7 +118,7 @@ public class CabinetServiceImpl implements CabinetService{
                 .number(temp[2])
                 .name(cabinetDTO.getSelectOne())
                 .member(memberRepository.findOne(memberInformation.getUserName(request)))
-                .startTime(new Date())
+                .startTime(now)
                 .build();
         cabinetRepository.save(cabinet);
         cabinetHistoryRepository.save(cabinetHistory);
