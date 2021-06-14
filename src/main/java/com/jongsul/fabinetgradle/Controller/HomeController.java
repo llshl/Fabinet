@@ -116,6 +116,6 @@ public class HomeController {
         log.info(name+" 사물함 개방");    //name을 넘겨줘서 Mqtt메시지를 만들어서 전송하면됨 (A-1-1)이렇게
         MqttConfig sendMessage = new MqttConfig();
         sendMessage.selfOpenMqttSender(name);
-        return "index";
+        return "redirect:/";
     }
 }
