@@ -1,6 +1,7 @@
 package com.jongsul.fabinetgradle.Controller;
 
 import com.jongsul.fabinetgradle.AwsCollection.AddCollection;
+import com.jongsul.fabinetgradle.Config.MemberInformation;
 import com.jongsul.fabinetgradle.Domain.Image;
 import com.jongsul.fabinetgradle.Service.ImageService;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +25,10 @@ import java.util.List;
 @Slf4j
 public class ImageController {
 
+    private final MemberInformation memberInformation;
     private final ImageService imageService;
     private HttpSession session;
+
 
     @PostMapping("/imgUpload")
     public String upload(@RequestParam("img") MultipartFile file, HttpServletRequest request) throws IOException, SQLException {
@@ -39,7 +42,8 @@ public class ImageController {
 
         Image image = new Image();
         session = request.getSession();
-        String sessionId = (String)session.getAttribute("loginMemberId");
+        String sessionId = memberInformation.getUserName(request);
+        System.out.println("사용자이름: "+sessionId);
         image.setName(sessionId);
         byte[] bytes;
         try {
