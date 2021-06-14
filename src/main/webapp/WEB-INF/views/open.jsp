@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Agency - Start Bootstrap Theme</title>
+        <title>Fabinet 개방하기</title>
         <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" /><div class="ui middle aligned center aligned grid"></div>
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
@@ -24,7 +24,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="assets/img/navbar-logo.svg" alt="" /></a>
+                <%--<a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="assets/img/navbar-logo.svg" alt="" /></a>--%>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"/>
             </div>
         </nav>
@@ -79,7 +79,7 @@
         <footer class="footer py-4">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-4 text-lg-left">Copyright © FABINET 2021</div>
+                    <div class="col-lg-4 text-lg-left">Copyright © KPU Fabinet 2021</div>
                     <div class="col-lg-4 my-3 my-lg-0">
                         <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
@@ -148,36 +148,6 @@
                         ' ' + ('0' + u.getHours()).slice(-2) +
                         ':' + ('0' + u.getMinutes()).slice(-2)
                 };
-            });
-        </script>
-
-        <script type="text/javascript">
-            $(document).ready(function(){
-                $("#pay_btn").click(function(){
-                    alert("눌림");
-                    var b_no = $(this).parent().attr("name");    //이거 글번호 읽기가 안된다 어케하지
-                    console.log(b_no);
-                    $.ajax({
-                        type: "get",
-                        url: "/bill/pay?id="+b_no,
-                        contentType : "application/json; charset=UTF-8",
-                        dataType : "json",
-                        data: {
-                            b_no: b_no
-                        },
-                        success: function(data) {
-                            console.log(data);
-                            location.href = "/";
-                            // $("#b_title").text(data['b_title']);
-                            // $("#b_review").text(data['b_ownernick'] + " - " +  FormatToUnixtime(data['b_regdate']));
-                            // $("#b_content").text(data['b_content']);
-                            // $('#view_modal').modal('show');
-                        },
-                        error: function(error) {
-                            alert("게시글 읽기 페이지 아직 안만듬" + error);
-                        }
-                    });
-                });
             });
         </script>
 
