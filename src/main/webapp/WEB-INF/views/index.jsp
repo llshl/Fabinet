@@ -151,34 +151,13 @@
                             </a>
                             <div class="portfolio-caption">
                                 <div class="portfolio-caption-heading">개발자 정보</div>
-                                <div class="portfolio-caption-subheading text-muted">made by KPU Embedded System Senior Grade</div>
+                                <div class="portfolio-caption-subheading text-muted">made by KPU Embedded System</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <%
-            String userID = (String) session.getAttribute("loginMemberId");
-        %>
-        사용자 아이디는 <%= userID%>
-        <form action="/imgUpload" method="post" enctype="multipart/form-data">
-            <div class="field">
-                <div>
-                    <%--<input multiple="multiple" type="file" name=<%= userID%>/>--%>
-                    <input multiple="multiple" type="file" name="img"/>
-                </div>
-            </div>
-
-            <div>
-                <button class="ui fluid large teal submit button" type="submit" name="save">
-                    사진등록하기<i class="mdi-content-send right"></i>
-                </button>
-            </div>
-        </form>
-
-        <img alt="" src="/getImage" />
         <!-- Team-->
         <!-- <section class="page-section bg-light" id="team">
             <div class="container">

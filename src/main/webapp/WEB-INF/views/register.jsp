@@ -40,8 +40,10 @@
                         <div class="col-lg-7">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">Fabinet 서비스 가입하기</h1>
+                                    <strong>가입 후 개인정보 페이지에서 얼굴인증용 사진을 등록해주세요!</strong>
                                 </div>
+                                <br>
                                     <div class="form-group">
                                         <input class="form-control" id="name" type="text" placeholder="Name" required="required" data-validation-required-message="Please enter your name." />
                                         <p class="help-block text-danger"></p>
@@ -88,7 +90,7 @@
         <footer class="footer py-4">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-4 text-lg-left">Copyright © Your Website 2020</div>
+                    <div class="col-lg-4 text-lg-left">Copyright © KPU Fabinet 2021</div>
                     <div class="col-lg-4 my-3 my-lg-0">
                         <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
