@@ -46,7 +46,7 @@
                                 <div class="col-lg-4 col-sm-6 mb-2">
                                     <div class="text-center">
                                         <%--세션이름 확인하여 사진가져오기--%>
-                                        <img alt="" src="/getImage" />
+                                        <img alt="" src="/getImage" width="300" height="400"/>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-sm-6 mb-2">
