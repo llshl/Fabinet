@@ -38,7 +38,7 @@ public class BoardController {
         return ResponseEntity.ok(boards);
     }
 
-    //게시글 1개 불러오기
+    /*//게시글 1개 불러오기
     @GetMapping("/{id}")
     public ResponseEntity<Board> showOneBoard(@PathVariable int id){
         log.info(id+"번 게시글 불러오기");
@@ -48,7 +48,7 @@ public class BoardController {
             throw new BoardNotFoundException(String.format("ID[%s] not found",id));
         }
         return ResponseEntity.ok(board);
-    }
+    }*/
 
     //게시글 작성 DB등록
     @PostMapping("/post")

@@ -34,29 +34,27 @@
         <div class="container">
             <div class="card o-hidden border-0 shadow-lg my-5">
                 <div class="card-body p-0">
-                    <!-- Nested Row within Card Body -->
-                    <div class="row">
-                        <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-                        <div class="col-lg-7">
-                            <div class="p-5">
-                                <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">게시글 작성</h1>
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">${board.title}</h1>
+                                <div align="left">
+                                    <div id="board_author" style="white-space : pre-wrap;height: 100%">작성자: ${board.author }</div>
+                                    <div id="board_date" style="white-space : pre-wrap;height: 100%">작성일: ${board.date }</div>
                                 </div>
-    
-                                <form class="user" >
-                                    <div class="form-group">
-                                        <input class="form-control" id="title" type="text" placeholder="제목" required="required" data-validation-required-message="Please enter your name." />
-                                        <p class="help-block text-danger"></p>
-                                    </div>
-                                    <div class="form-group">
-                                        <textarea class="form-control" style="resize: vertical;" id="content" placeholder="내용" rows="8"></textarea>
-                                        <p class="help-block text-danger"></p>
-                                    </div>
-                                    <div class="btn btn-primary btn-user btn-block" id = "submitBoard">등록하기</div>
-                                </form>
-                                <hr>
                             </div>
-                        </div>
+
+                            <form class="user" >
+                                <br>
+                                    <div class="form-group">
+                                        <li class="list-group-item">
+                                            <div >
+                                                <div id="board_content"  style="white-space : pre-wrap;height: 100%">${board.content }</div>
+                                            </div>
+                                        </li>
+                                    </div>
+                            </form>
+                        <hr>
                     </div>
                 </div>
             </div>
@@ -83,37 +81,15 @@
         </footer>
 
         <script>
-            $(document).ready(function(){
-                $("#submitBoard").click(function(){
-                    var json = {
-                        title : $("#title").val(),
-                        content : $("#content").val()
-                    };
-
-                    for(var str in json){
-                        if(json[str].length == 0){
-                            alert($("#" + str).attr("placeholder") + "를 입력해주세요.");
-                            $("#" + str).focus();
-                            return;
-                        }
-                    }
-
-                    $.ajax({
-                        type : "POST",
-                        url : "/board/post",
-                        data : JSON.stringify(json),
-                        contentType: 'application/json',
-                        success : function(data) {
-                            console.log(data);
-                            alert('등록되었습니다.');
-                            location.href = "/board";
-                        },
-                        error: function (error) {
-                            alert("오류 발생" + error);
-                        }
-                    });
-                });
-            });
+            function FormatToUnixtime(unixtime) {
+                var u = new Date(unixtime);
+                console.log("u: " + u);
+                return u.getUTCFullYear() +
+                    '-' + ('0' + (u.getMonth()+1)).slice(-2) +
+                    '-' + ('0' + u.getDate()).slice(-2) +
+                    ' ' + ('0' + u.getHours()).slice(-2) +
+                    ':' + ('0' + u.getMinutes()).slice(-2)
+            };
         </script>
 
         <!-- Bootstrap core JS-->

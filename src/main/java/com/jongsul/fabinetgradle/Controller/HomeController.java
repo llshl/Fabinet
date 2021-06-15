@@ -1,10 +1,14 @@
 package com.jongsul.fabinetgradle.Controller;
 
+import com.jongsul.fabinetgradle.Domain.Board;
+import com.jongsul.fabinetgradle.Exception.BoardNotFoundException;
 import com.jongsul.fabinetgradle.Mqtt.MqttSubscribeUserID;
 import com.jongsul.fabinetgradle.Mqtt4Spring.MqttConfig;
+import com.jongsul.fabinetgradle.Service.BoardService;
 import com.jongsul.fabinetgradle.Service.CabinetService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +24,7 @@ import javax.servlet.http.HttpSession;
 public class HomeController {
 
     private final CabinetService cabinetService;
+    private final BoardService boardService;
 
     @RequestMapping("/")    //첫 화면
     public String home(){
@@ -117,5 +122,18 @@ public class HomeController {
         MqttConfig sendMessage = new MqttConfig();
         sendMessage.selfOpenMqttSender(name);
         return "redirect:/";
+    }
+
+    //게시글 1개 불러오기
+    @GetMapping("/board/{id}")
+    public String showOneBoard(@PathVariable int id, Model model){
+        log.info(id+"번 게시글 불러오기");
+        Board board = boardService.findOne(id);
+        //존재하지 않는 게시물 조회시 예외 상태코드 반환
+        if (board == null) {
+            throw new BoardNotFoundException(String.format("ID[%s] not found",id));
+        }
+        model.addAttribute("board",board);
+        return "board-info";
     }
 }
