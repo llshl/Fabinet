@@ -53,7 +53,7 @@ public class ImageController {
         Image image = new Image();
         session = request.getSession();
         String sessionId = memberInformation.getUserName(request);
-        System.out.println("사용자이름: "+sessionId);
+        log.info("사용자이름: "+sessionId);
         image.setName(sessionId);
         byte[] bytes;
         try {
@@ -102,12 +102,21 @@ public class ImageController {
         if(session != null) {
             String sessionId = (String) session.getAttribute("loginMemberId");
             List<Image> findImage = imageService.findOne(sessionId);    //리스트로 가져오긴 했지만 기본적으로 회원당 1장의 사진만 올릴수 있도록 업데이트 쿼리로 바꾸자
-            System.out.println("findImage: " + findImage);
-            System.out.println("getID: " + findImage.get(0).getId());
-            System.out.println("getImage: " + findImage.get(0).getImage());
+            System.out.println("1: "+findImage.size());
+            if(findImage.size() == 0){
+                log.info("기본이미지 출력");
+                List<Image> defaultImage = imageService.findOne("admin");
+                int blobLength = (int) defaultImage.get(defaultImage.size()-1).getImage().length();
+                byte[] byteImage = defaultImage.get(defaultImage.size()-1).getImage().getBytes(1, blobLength);
+                return byteImage;
+            }
+            log.info("회원 이미지 출력");
+            log.info("findImage: " + findImage);
+            log.info("getID: " + findImage.get(0).getId());
+            log.info("getImage: " + findImage.get(0).getImage());
 
-            int blobLength = (int) findImage.get(0).getImage().length();
-            byte[] byteImage = findImage.get(0).getImage().getBytes(1, blobLength);
+            int blobLength = (int) findImage.get(findImage.size()-1).getImage().length();
+            byte[] byteImage = findImage.get(findImage.size()-1).getImage().getBytes(1, blobLength);
             return byteImage;
         }
         else{
