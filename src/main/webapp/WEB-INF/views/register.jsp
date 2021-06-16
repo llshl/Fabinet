@@ -24,7 +24,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="assets/img/navbar-logo.svg" alt="" /></a>
+                <%--<a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="assets/img/navbar-logo.svg" alt="" /></a>--%>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"/>
             </div>
         </nav>
@@ -41,7 +41,6 @@
                             <div class="p-5">
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Fabinet 서비스 가입하기</h1>
-                                    <strong>가입 후 개인정보 페이지에서 얼굴인증용 사진을 등록해주세요!</strong>
                                 </div>
                                 <br>
                                     <div class="form-group">
@@ -70,13 +69,6 @@
                                     </div>
 
                                     <div class="btn btn-primary btn-user btn-block" id = "register_btn">회원가입</div>
-                                <hr>
-                                <div class="text-center">
-                                    <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                </div>
-                                <div class="text-center">
-                                    <a class="small" href="/loginForm">Already have an account? Login!</a>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -139,7 +131,7 @@
                             }
                             else if(data == 'available'){
                                 alert('가입 완료');
-                                location.href = "/";
+                                location.href = "/imageUpload";
                             }
                         }
                     });

@@ -55,6 +55,13 @@ public class HomeController {
         return "register";
     }
 
+    //회원가입시 사진등록폼으로
+    @GetMapping("/imageUpload")
+    public String toimageUpload(){
+        log.info("회원가입시 사진등록폼으로 이동");
+        return "imageupload";
+    }
+
     //로그인화면으로
     @GetMapping("/login")
     public String toMain(){
