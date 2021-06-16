@@ -5,20 +5,16 @@ import com.jongsul.fabinetgradle.DTO.BillDTO;
 import com.jongsul.fabinetgradle.DTO.CabinetDTO;
 import com.jongsul.fabinetgradle.Domain.Cabinet;
 import com.jongsul.fabinetgradle.Domain.Member;
-import com.jongsul.fabinetgradle.Mqtt4Spring.MqttConfig;
 import com.jongsul.fabinetgradle.Service.CabinetService;
 import com.jongsul.fabinetgradle.Service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,24 +27,19 @@ import java.util.List;
 @RequestMapping("bill")
 public class CabinetController {
 
-    private BillDTO bill;
     private final CabinetService cabinetService;
     private final MemberService memberService;
-    private long passedTime;
     private final List<String> CABINET_LIST
             = Arrays.asList(new String[]{"A-1-1", "A-1-2", "B-1-1", "B-1-2"});
 
     private final MemberInformation memberInformation;
     private int money = -1;
 
-    //사물함 사용시간을 LocalDateTime에서 Date로 바꿨다. 사물함 추가하기 기능 구현하고 확인해보자
     @GetMapping("/list")
     public List<Cabinet> showEntireBill(HttpServletRequest request){
         Member member = memberService.findOne(memberInformation.getUserName(request));
-        List<Cabinet> cabinets = cabinetService.findAllByID(member);    //멤버를 통해 해당 사용자가 사용중인 사물함 리스트 가져오기
+        List<Cabinet> cabinets = cabinetService.findAllByID(member);
         Date now = new Date();
-        System.out.println("계산된값: "+Math.floor(money*0.00001541666/10)*10+1000);
-        System.out.println("money: "+money);
         return cabinets;
     }
 
@@ -56,8 +47,7 @@ public class CabinetController {
     @Transactional
     @PostMapping("/stopUsing/{id}")
     public void deleteCabinet(@PathVariable long id) {
-        System.out.println("여까진옴");
-        System.out.println("실행 중지처리할 캐비넷 아이디: "+id);
+        log.info("실행 중지처리할 캐비넷 아이디: "+id);
         cabinetService.deleteCabinetByID(id);
     }
 
@@ -73,7 +63,6 @@ public class CabinetController {
 
     @GetMapping("/cabinets")
     public ResponseEntity<List<String>> getCurrentAvailableCabinet(){
-
         //A동, B동, C동만 하자
         //각 동에 1,2,3층있다
         //각 층에 1~10번 있다

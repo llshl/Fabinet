@@ -56,8 +56,20 @@ public class CabinetServiceImpl implements CabinetService{
     @Override
     @Transactional
     public void deleteCabinetByID(long id) {
-        System.out.println("서비스실행");
-        cabinetRepository.delete(id);
+        log.info("deleteCabinetByID실행");
+        Date now = new Date();
+        Cabinet findCabinet = cabinetRepository.getOneCabinetById(id);
+        CabinetHistory cabinetHistory = CabinetHistory.builder()
+                .building(findCabinet.getBuilding())
+                .floor(findCabinet.getFloor())
+                .number(findCabinet.getNumber())
+                .name(findCabinet.getName())
+                .member(findCabinet.getMember())
+                .startTime(findCabinet.getStartTime())
+                .endTime(now)
+                .build();
+        cabinetRepository.delete(findCabinet);
+        cabinetRepository.updateHistory(cabinetHistory);
     }
 
     @Override
@@ -94,7 +106,7 @@ public class CabinetServiceImpl implements CabinetService{
         iamportApiDTO.setName(cabinet.getMember().getName());
         iamportApiDTO.setMoney(returnMoney);
         iamportApiDTO.setNum(Long.parseLong(id));
-        System.out.println("지불할 금액: "+returnMoney);
+        log.info("지불할 금액: "+returnMoney);
         return iamportApiDTO;
     }
 
@@ -112,16 +124,7 @@ public class CabinetServiceImpl implements CabinetService{
                 .member(memberRepository.findOne(memberInformation.getUserName(request)))
                 .startTime(now)
                 .build();
-        CabinetHistory cabinetHistory = CabinetHistory.builder()
-                .building(temp[0])
-                .floor(temp[1])
-                .number(temp[2])
-                .name(cabinetDTO.getSelectOne())
-                .member(memberRepository.findOne(memberInformation.getUserName(request)))
-                .startTime(now)
-                .build();
         cabinetRepository.save(cabinet);
-        cabinetHistoryRepository.save(cabinetHistory);
         return cabinet.getName();
     }
 }
