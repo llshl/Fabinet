@@ -92,7 +92,7 @@ public class ImageController {
                 .withDetectionAttributes("DEFAULT");
         //컬랙션에 업로드
         IndexFacesResult indexFacesResult = rekognitionClient.indexFaces(indexFacesRequest);
-        return "redirect:/";
+        return "cabinet";
     }
 
     @RequestMapping("/getImage")
