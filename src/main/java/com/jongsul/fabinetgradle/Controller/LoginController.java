@@ -59,7 +59,7 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public void doRegister(@RequestBody RegisterDTO registerDTO, HttpServletResponse response) throws IOException {
+    public void doRegister(@RequestBody RegisterDTO registerDTO, HttpServletResponse response, HttpSession session) throws IOException {
 
         log.info(registerDTO.toString());
 
@@ -77,6 +77,7 @@ public class LoginController {
         else{
             log.info("중복검사 통과");
             log.info(memberService.join(registerDTO)+"가입 완료");
+            session.setAttribute("loginMemberId",registerDTO.getUserID());
             response.getWriter().write("available");
         }
     }

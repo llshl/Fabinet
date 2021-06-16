@@ -82,9 +82,9 @@
                     </div>
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <h4>사진을 선택하고 사진등록하기 버튼을 누르세요</h4>
+                            <h4>사진을 선택하고 등록하기 버튼을 누르세요</h4>
                             <form action="/imgUpload" method="post" enctype="multipart/form-data">
-                                <div class="field">
+                                <div class="field" style="margin-bottom: 10px">
                                     <div>
                                         <input multiple="multiple" type="file" name="img"/><br>
                                     </div>
