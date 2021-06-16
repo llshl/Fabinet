@@ -29,7 +29,7 @@
                 contentType: 'application/json',
                 success : function(data) {
                     console.log("실행완료");
-                    //location.href="/";
+                    location.href="/";
                 }
             });
         });

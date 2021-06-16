@@ -94,13 +94,6 @@
         </footer>
 
         <script>
-            function payFunc(){
-                var b_no = this.parent;
-                console.log(b_no);
-                alert(b_no);
-            }
-        </script>
-        <script>
             $(document).ready(function() {
                 var entiremoneyVar;
                 var now = new Date();
