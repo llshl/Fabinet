@@ -13,10 +13,7 @@ import java.util.List;
 public class DeleteFaceFromCollection {
     public static final String collectionId = "Collection";
     //컬랙션에서 지울 사진의 id
-    public static final String faces[] = {"e64b05a5-29f2-446a-8d12-92fc50488ce9"
-    ,"e431e60b-2da1-434a-9555-d7d3678a3519"
-    ,"b18894b6-5b84-43b9-b6d3-4db0c0b63d1d"
-    ,"64412b02-f159-4432-9186-412ee2f8e468"};
+    public static final String faces[] = {"5f01bfbc-6499-4dc7-b9d8-e22f9d65e549"};
 
     public static void main(String[] args) throws Exception {
         BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIA4EPX72XC3ACFOWVU", "BnW0X9nSPsqJN07KXgjKreizEa4Q7BI4I9Qdrytd");

@@ -81,7 +81,7 @@ public class ImageController {
         com.amazonaws.services.rekognition.model.Image image4Collection =
                 new com.amazonaws.services.rekognition.model.Image().withBytes(buf);
 
-        String photoName = userID;  //이 이름으로 업로르됨
+        String photoName = userID+".jpg";  //이 이름으로 업로르됨
 
         IndexFacesRequest indexFacesRequest = new IndexFacesRequest()
                 .withImage(image4Collection)
