@@ -50,7 +50,7 @@ public class showFaceList {
             for (Face face : faces) {
                 System.out.println("얼굴정보");
                 System.out.println("Name: "+face.getExternalImageId());
-                System.out.println(face.getFaceId());
+                System.out.println(face.getFaceId().getClass());
             }
             System.out.println("==========================================================");
         } while (listFacesResult != null && listFacesResult.getNextToken() != null);

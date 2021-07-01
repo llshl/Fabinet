@@ -24,7 +24,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
-                <%--<a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="assets/img/navbar-logo.svg" alt="" /></a>--%>
+                <a class="navbar-brand js-scroll-trigger" href="/"><img src="assets/img/FabinetHome2.png" alt="" /></a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"/>
             </div>
         </nav>
@@ -102,9 +102,19 @@
                     success: function (data) {
                         console.log(data);
                         $('#selectCabinet').empty();
-                        $.each(data, function (key, value) {
-                            $('#selectCabinet').append('<option value="' + value + '">' + value + '</option>');
-                        });
+                        // $.each(data, function (key, value) {
+                        //     $('#selectCabinet').append('<option value="' + value + '">' + value + '</option>');
+                        // });
+                        if(data.length == 0){
+                            $.each(data, function (key, value) {
+                                $('#selectCabinet').append('<option value="">사용 가능한 사물함이 없습니다.</option>');
+                            });
+                        }
+                        else{
+                            $.each(data, function (key, value) {
+                                $('#selectCabinet').append('<option value="' + value + '">' + value + '</option>');
+                            });
+                        }
                     },
                 });
             });
