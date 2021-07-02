@@ -68,15 +68,6 @@ public class CabinetController {
 
     @GetMapping("/cabinets")
     public ResponseEntity<List<String>> getCurrentAvailableCabinet(){
-        //A동, B동, C동만 하자
-        //각 동에 1,2,3층있다
-        //각 층에 1~10번 있다
-        //프론트에서 사물함위치를 입력받을때 건물,층,번호로 분리해서 입력받지 말고 그냥 드롭다운 한개로만 받자(사물함예약 페이지의 남는여백에는 요금 정책 설명 텍스트)
-        //db에 존재하는 사물함 사용 내역들을 List<Cabinet>으로 전부 가져오기
-        //가져온 리스트에서 name속성을 추출(ex. B-2-9)
-        //존재할수있는 모든 사물함위치들을 한곳에 미리 선언(A-1-1 ~ A-1-10, A-2-1 ~ A-2-1 이런식으로 쭉 따로 선언해두자)
-        //선언해둔 집단에서 가져온 name속성을 뺀 결과(사용가능한 곳들)를 json으로 전송
-        //사물함 위치를 입력받을때 건물,층,번호를 따로 받는것이 아닌 완성형태로 선택하는 드롭박스1개로 통일하자(A-1-1, A-1-2, A-1-3... 이런식으로 길게)
         log.info("getAvailableCabinet 실행");
         return ResponseEntity
                 .ok(cabinetService.getAvailableCabinet());
@@ -86,7 +77,6 @@ public class CabinetController {
     public ResponseEntity<String> getCabinetByName(String userID) {
         log.info("getCabinetByName 실행");
         List<Cabinet> getCabinets = cabinetService.getCabinetName(userID);
-        //return ResponseEntity.ok(getCabinets.get(0).getName());
         return ResponseEntity
                 .ok(getCabinets.get(0).getName());
     }
