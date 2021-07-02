@@ -133,13 +133,8 @@
                         contentType: 'application/json',
                         success : function(data) {
                             console.log(data);
-                            if (data == 'occupied') {
-                                alert('이미 사용중인 자리입니다.');
-                            }
-                            else if(data == 'available'){
-                                alert('사용 시작');
-                                location.href = "/";
-                            }
+                            alert('사용 시작');
+                            location.href = "/";
                         },
                         error: function (error) {
                             alert("오류 발생" + this.data);

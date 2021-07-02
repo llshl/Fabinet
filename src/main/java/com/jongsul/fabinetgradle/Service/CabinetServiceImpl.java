@@ -17,9 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -32,6 +30,8 @@ public class CabinetServiceImpl implements CabinetService{
     private final MemberRepository memberRepository;
     private final long THREE_HOURS_SEC = 10800;
     private final long ONE_HOUR_SEC = 3600;
+    private final List<String> CABINET_LIST
+            = Arrays.asList(new String[]{"A-1-1", "A-1-2", "B-1-1", "B-1-2"});
 
     @Override
     public List<Cabinet> findAllByID(Member member){
@@ -51,6 +51,24 @@ public class CabinetServiceImpl implements CabinetService{
     @Override
     public List<Cabinet> getAllCabinetByName(String userID) {
         return cabinetRepository.getAllCabinet(userID);
+    }
+
+    @Override
+    public List<String> getAvailableCabinet() {
+        List<String> availableCabinet = new ArrayList<>();
+        List<String> usingCabinet = cabinetRepository.getAllCabinet();
+
+        //deep copy
+        for(String cabinetName : CABINET_LIST){
+            availableCabinet.add(cabinetName);
+        }
+        //차집합
+        availableCabinet.removeAll(usingCabinet);
+        log.info("사용가능자리");
+        for (String availableCabinetName : availableCabinet) {
+            log.info(availableCabinetName);
+        }
+        return availableCabinet;
     }
 
     @Override

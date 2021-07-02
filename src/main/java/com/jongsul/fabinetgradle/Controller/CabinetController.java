@@ -9,6 +9,7 @@ import com.jongsul.fabinetgradle.Service.CabinetService;
 import com.jongsul.fabinetgradle.Service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -29,36 +32,38 @@ public class CabinetController {
 
     private final CabinetService cabinetService;
     private final MemberService memberService;
-    private final List<String> CABINET_LIST
-            = Arrays.asList(new String[]{"A-1-1", "A-1-2", "B-1-1", "B-1-2"});
-
     private final MemberInformation memberInformation;
-    private int money = -1;
 
     @GetMapping("/list")
-    public List<Cabinet> showEntireBill(HttpServletRequest request){
+    public ResponseEntity<List<Cabinet>> showEntireBill(HttpServletRequest request){
         Member member = memberService.findOne(memberInformation.getUserName(request));
         List<Cabinet> cabinets = cabinetService.findAllByID(member);
-        Date now = new Date();
-        return cabinets;
+        return ResponseEntity
+                .ok(cabinets);
     }
 
     //사물함 사용 중지(삭제)
     @Transactional
     @PostMapping("/stopUsing/{id}")
-    public void deleteCabinet(@PathVariable long id) {
+    public ResponseEntity deleteCabinet(@PathVariable long id) {
         log.info("실행 중지처리할 캐비넷 아이디: "+id);
         cabinetService.deleteCabinetByID(id);
+        return ResponseEntity
+                .noContent()
+                .build();
     }
 
     //선택한 사물함 정보 받아서 DB반영
     @PostMapping("/chooseCabinet")
-    public void chooseCabinet(@RequestBody CabinetDTO cabinetDTO,
+    public ResponseEntity chooseCabinet(@RequestBody CabinetDTO cabinetDTO,
                               HttpServletRequest request,
                               HttpServletResponse response) throws IOException {
 
         log.info(cabinetService.chooseCanibet(cabinetDTO,request)+"번 사물함 사용 시작");
         response.getWriter().write("available");
+        return ResponseEntity
+                .noContent()
+                .build();
     }
 
     @GetMapping("/cabinets")
@@ -72,27 +77,17 @@ public class CabinetController {
         //존재할수있는 모든 사물함위치들을 한곳에 미리 선언(A-1-1 ~ A-1-10, A-2-1 ~ A-2-1 이런식으로 쭉 따로 선언해두자)
         //선언해둔 집단에서 가져온 name속성을 뺀 결과(사용가능한 곳들)를 json으로 전송
         //사물함 위치를 입력받을때 건물,층,번호를 따로 받는것이 아닌 완성형태로 선택하는 드롭박스1개로 통일하자(A-1-1, A-1-2, A-1-3... 이런식으로 길게)
-
-        List<String> usingCabinet = cabinetService.getAllCabinet();
-        List<String> entireCabinet = new ArrayList<>();
-
-        //deep copy
-        for(String cabinetName : CABINET_LIST){
-            entireCabinet.add(cabinetName);
-        }
-        //차집합
-        entireCabinet.removeAll(usingCabinet);
-        log.info("사용가능자리");
-        for (String availableCabinet : entireCabinet) {
-            log.info(availableCabinet);
-        }
-        return ResponseEntity.ok(entireCabinet);
+        log.info("getAvailableCabinet 실행");
+        return ResponseEntity
+                .ok(cabinetService.getAvailableCabinet());
     }
 
     @GetMapping("/mqtt")
-    public String getCabinetByName(String userID) {
+    public ResponseEntity<String> getCabinetByName(String userID) {
         log.info("getCabinetByName 실행");
         List<Cabinet> getCabinets = cabinetService.getCabinetName(userID);
-        return getCabinets.get(0).getName();
+        //return ResponseEntity.ok(getCabinets.get(0).getName());
+        return ResponseEntity
+                .ok(getCabinets.get(0).getName());
     }
 }
