@@ -80,7 +80,8 @@ public class ImageServiceImpl implements ImageService{
                 new com.amazonaws.services.rekognition.model.Image().withBytes(buf);
 
         //.뒤의 확장자만 추출
-        String[] fileOriginalName = file.getOriginalFilename().split("\\.");
+//        String[] fileOriginalName = file.getOriginalFilename().split("\\.");
+        String[] fileOriginalName = file.getContentType().split("\\/");
         String fileNameExtension = "."+fileOriginalName[1];
 
         String photoName = userID+fileNameExtension;  //사용자ID에 사진 확장자명이 추가된 형태로 저장됨
