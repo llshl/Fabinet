@@ -5,7 +5,7 @@
 ****
 # 2. Structure
 ## 2.1. 프로그램 순서도
-* ![image](https://user-images.githubusercontent.com/52540882/123548708-e57f5a80-d7a0-11eb-86d9-011e556cf476.png)
+* ![image](https://user-images.githubusercontent.com/52540882/126070087-623831c1-e66a-4f10-ad69-b214d8fa336b.png)
 
 ****
 # 3. Language/Tools
